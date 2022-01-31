@@ -9,8 +9,12 @@ const authSlice = createSlice({
           if(employeeIndex > -1) {
             state.authenticated = true;
             state.employee = data.payload.employees.payload[employeeIndex];
+            localStorage.setItem('hack-auth', 'true');
           }
-          //state.authenticated = true;
+        },
+        logout(state) {
+          state.authenticated = false;
+          localStorage.removeItem('hack-auth');
         }
     }
 });

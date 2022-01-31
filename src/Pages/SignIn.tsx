@@ -11,6 +11,7 @@ import { useSelector, useDispatch} from 'react-redux';
 import { useEffect } from 'react';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import React, {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
 
@@ -26,18 +27,19 @@ const SignIn = () => {
   const {value: password, filedValueChangeHandler: passwordChangeHandler, isValid: passwordIsValid, isTouched: passwordIsTouched } = useForm();
   const dispatch = useDispatch();
   const isAuthenicated = useSelector( (state: any) => state.auth.authenticated );
-  const employees = useSelector( (state: any) => state.employees.employees)
+  const employees = useSelector( (state: any) => state.employees.employees);
+  const navigate = useNavigate();
 
   useEffect( () => {
     if(sumitted) {
       if(isAuthenicated) {
         setAuthError(false);
-        console.log('Success');
+        navigate("/hackathons")
       } else {
         setAuthError(true);
       }
     }
-  }, [isAuthenicated, sumitted])
+  }, [isAuthenicated, sumitted, navigate])
 
   const useNameChange= (event: any) => {
     employeeIdChangeHandler(event.target.value);
